@@ -1,0 +1,13 @@
+{
+  "name": "crawler",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node crawler.js"
+  },
+
+  "dependencies":{
+    "jquery": "*",
+    "cheerio": "*"
+  }
+}
