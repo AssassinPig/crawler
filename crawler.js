@@ -33,7 +33,7 @@ function totalData(data) {
   $('a').each(function(i,e){
     var href = new String($(e).attr('href'));
     if(href.match(/\/p\// )) {
-      //console.log(href);
+      console.log(href);
       var i=0;
       for(; i<urlHistory.length; ++i) {
         if(urlHistory[i] == href) {
@@ -52,7 +52,7 @@ function totalData(data) {
         options.path = bsf();
       }
 
-      if(option.path) {
+      if(options.path) {
         download(options);
       }
     }
