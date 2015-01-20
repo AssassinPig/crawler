@@ -3,6 +3,7 @@ from crawler import Crawler
 from crawleritem import CrawlerItem
 from StringIO import StringIO
 import lxml.html as LH
+from strategy import Strategy
 
 class WoaiduCrawlerItem(CrawlerItem):
 
@@ -29,6 +30,7 @@ class WoaiduCrawlerItem(CrawlerItem):
         print url_list
         return url_list
 
-crawler = Crawler()
-crawler.set_template(WoaiduCrawlerItem)
+start_url = ['http://www.woaidu.org/']
+strategy = Strategy(Strategy.bsf)
+crawler = Crawler(start_url, WoaiduCrawlerItem, strategy)
 crawler.run()
