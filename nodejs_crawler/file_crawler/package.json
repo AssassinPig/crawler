@@ -1,0 +1,16 @@
+{
+  "name": "file_crawler",
+  "version": "0.0.1",
+  "main": "file_server.js",
+  "private" : true,
+  "scripts": {
+    "start": "node file_crawler.js"
+  },
+  "author": "assassinpig",
+  "license": "ISC",
+  "dependences": {
+  	"cheerio" : "*",
+  	"encoding": "*",
+  	"iconv": "*"
+  }
+}
