@@ -1,10 +1,10 @@
 plan:
 ====
 1. simple crawler: single process/single thread/single queue
+2. extract strategy through parse interface in CrawlerItem class 
 
 todo:
 ====
-1. extract strategy 
-2. travel strategy bsf dsf 
-3. avoid ban
-4. multiple pages process
+1. travel strategy bsf dsf 
+2. avoid ban
+3. multiple pages process
