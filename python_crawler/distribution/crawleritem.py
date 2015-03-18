@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-import urllib2
+'''
+    author: assassinpig
+    email: assassinpig@gmail.com
+'''
+import requests
 class CrawlerItem(object):
     url = None
     html_body = None
@@ -11,10 +15,8 @@ class CrawlerItem(object):
 
     def fetch(self):
         print 'fetch %s' % self.url
-        req = urllib2.Request(self.url)
-        f = urllib2.urlopen(req)
-        self.html_body = f.read()
-        #print 'html_body %s' % self.html_body
+        res = requests.get(self.url)
+        self.html_body = res.content 
 
     def parse(self):
         pass

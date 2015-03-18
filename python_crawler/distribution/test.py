@@ -6,7 +6,6 @@ import lxml.html as LH
 from strategy import Strategy
 
 class WoaiduCrawlerItem(CrawlerItem):
-
     def __init__(self, url):
         super(WoaiduCrawlerItem, self).__init__(url)
 
@@ -30,7 +29,8 @@ class WoaiduCrawlerItem(CrawlerItem):
         print url_list
         return url_list
 
-start_url = ['http://www.woaidu.org/']
-strategy = Strategy(Strategy.bsf)
-crawler = Crawler(start_url, WoaiduCrawlerItem, strategy)
-crawler.run()
+if __name__ == '__main__':
+    start_url = ['http://www.woaidu.org/']
+    strategy = Strategy(Strategy.BSF)
+    crawler = Crawler(start_url, WoaiduCrawlerItem, strategy)
+    crawler.run()

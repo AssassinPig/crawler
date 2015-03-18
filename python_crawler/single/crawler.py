@@ -1,23 +1,27 @@
 # -*- coding: utf-8 -*-
+'''
+    author: assassinpig
+    email: assassinpig@gmail.com
+'''
 from crawleritem import CrawlerItem
 import strategy
 
-class Crawler:
+class Crawler(object):
     visited_list = []
     todo_list = []
 
-    start_url = []
+    start_urls = []
     template_cls = None
     strategy = None
 
-    def __init__(self, start_url, template_cls, strategy):
-        self.start_url.extend(start_url)
+    def __init__(self, start_urls, template_cls, strategy):
+        self.start_urls.extend(start_urls)
         self.template_cls = template_cls
         self.strategy = strategy 
 
     def run(self):
         #add to list
-        for e in self.start_url:
+        for e in self.start_urls:
             #self.todo_list.append(e)
             print e
             self.strategy.append(e)
@@ -33,9 +37,6 @@ class Crawler:
                 self.strategy.append(item.url)
 
                 #url_list process
-                self.strategy.extend(url_list)
+                self.strategy.extend_list(url_list)
             else:
                 break
-
-
-

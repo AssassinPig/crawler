@@ -1,9 +1,15 @@
+# -*- coding: utf-8 -*-
+'''
+    author: assassinpig
+    email: assassinpig@gmail.com
+'''
+
 class Strategy(object):
     visited_list = None 
     todo_list = None 
 
-    dsf = 0 
-    bsf = 1 
+    DSF = 0 
+    BSF = 1 
 
     strategy = 0
 
@@ -13,14 +19,13 @@ class Strategy(object):
         self.strategy = strategy
 
     def append(self,elem):
-        if self.strategy == 0:
+        if self.strategy == self.DSF:
             #dsf
             self.todo_list.append(elem)
-        elif self.strategy == 1: 
+        elif self.strategy == self.BSF: 
             # bsf
             # add to head 
             self.todo_list.insert(0, elem)
-
 
     def pop(self):
         return self.todo_list.pop()
