@@ -65,8 +65,3 @@ class Master(object):
         while master.is_running():
             url = master.r.brpop(master.QUEUE_FETCHED) 
             master.todo_list.append(url)
-
-if __name__ == '__main__':
-    start_urls = [ 'http://www.woaidu.org/' ]
-    master = Master(settings=settings, start_urls=start_urls)
-    master.run()

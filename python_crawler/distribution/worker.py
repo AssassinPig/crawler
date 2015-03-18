@@ -77,10 +77,3 @@ class Worker(Crawler):
                 #self.strategy.extend_list(url_list)
              
 
-
-if __name__ == '__main__':
-    #start_urls = ['http://www.woaidu.org/']
-    start_urls = []
-    strategy = Strategy(Strategy.BSF)
-    worker = Worker(start_urls=start_urls, strategy=strategy, settings=settings)
-    worker.run()
