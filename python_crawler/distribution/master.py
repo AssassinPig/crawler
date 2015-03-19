@@ -4,17 +4,23 @@ import time
 import settings
 import redis
 import threading
+from mylogger import get_logger 
+
+logger = get_logger(name="master", file_name="master.log")
 
 class Master(object): 
 
     @staticmethod
     def exit_handler(signum, frame):
-        print 'you press ctrl+c!'
-        #instance()
+        #print 'you press ctrl+c!'
+        logger.debug('you press Ctrl+C!')
+        pass
 
     def __init__(self, settings=None, start_urls=None, strategy=None):
+        logger.debug('Init Master ...')
         if settings is None:
             try:
+                logger.debug('Connect to local redis')
                 self.r = redis.StrictRedis(host='localhost', port=6379, db=0)
                 if self.r is None:
                     raise redis.exceptions.ConnectionError 
@@ -29,7 +35,10 @@ class Master(object):
             self.QUEUE_FETCHED = settings.QUEUE_FETCHED
 
             self.r = redis.StrictRedis(host=self.host, port=self.port, db=0)
+            logger.debug('Connect to %s:%d redis' % (self.host, self.port))
+
         signal.signal(signal.SIGINT, self.exit_handler)
+
         if start_urls is not None:
             self.todo_list = start_urls
         self.thread_running = False
@@ -46,10 +55,11 @@ class Master(object):
     def run(self):
         while True:
             for l in self.todo_list:
+                logger.debug('push %s todo' % l)
                 self.r.lpush(self.QUEUE_TODO, l)  
 
             url = self.r.brpop(self.QUEUE_FETCHED) 
-            print 'fetch %s' % url[1]
+            logger.debug('fetch %s todo' % url[1])
             #we suppose url is validate
             self.todo_list.append(url[1])
 

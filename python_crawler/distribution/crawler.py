@@ -23,11 +23,11 @@ class Crawler(object):
         #add to list
         for e in self.start_urls:
             #self.todo_list.append(e)
-            print e
+            #print e
             self.strategy.append(e)
         
         while(True):
-            print 'run loop...'
+            #print 'run loop...'
             if self.strategy.todo_count() != 0:
                 item = self.template_cls(self.strategy.pop())
                 item.fetch()
