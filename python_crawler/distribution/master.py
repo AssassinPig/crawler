@@ -53,15 +53,22 @@ class Master(object):
         return self.thread_running
 
     def run(self):
+        visited_list = [] 
         while True:
             for l in self.todo_list:
                 logger.debug('push %s todo' % l)
                 self.r.lpush(self.QUEUE_TODO, l)  
+                i = self.todo_list.index(l)
+                #here should be a watermark
+                self.todo_list.pop(i)
+                break
 
             url = self.r.brpop(self.QUEUE_FETCHED) 
             logger.debug('fetch %s todo' % url[1])
-            #we suppose url is validate
-            self.todo_list.append(url[1])
+            #simple stragtey 
+            if url[1] not in visited_list:
+                self.todo_list.append(url[1])
+                visited_list.append(url[1])
 
     @staticmethod
     def put(master):

@@ -14,6 +14,37 @@ import os
 
 logger = get_logger(name="worker", file_name="worker.log")
 
+class Item36kr(CrawlerItem):
+    def __init__(self, url):
+        super(Item36kr, self).__init__(url)
+
+    def parse(self):
+        strHtml = StringIO(self.html_body)
+        tree = LH.parse(strHtml)
+        l1 = tree.xpath('//article/div/h1/a[@href]/@href')
+        l2 = tree.xpath('//li[@class=\'next_page\']/a[@href]/@href')
+
+        url_list = []
+        for i, elem  in enumerate(l1):
+            if l1[i].find('http:') == 0:
+                url_list.append(l1[i])
+            else:
+                url = 'http://%s%s' % (self.refer, l1[i])
+                #print 'new url: %s' % url
+                url_list.append(url)
+
+        for i, elem in enumerate(l2):
+            print 'next page %s' % l2[i]
+            if l2[i].find('http:') == 0:
+                url_list.append(l2[i])
+            else:
+                url = 'http://%s%s' % (self.refer, l2[i])
+                print 'new url: %s' % url
+                url_list.append(url)
+
+        return url_list
+
+
 class WoaiduCrawlerItem(CrawlerItem):
     def __init__(self, url):
         super(WoaiduCrawlerItem, self).__init__(url)
@@ -21,10 +52,10 @@ class WoaiduCrawlerItem(CrawlerItem):
     def parse(self):
         strHtml = StringIO(self.html_body)
         tree = LH.parse(strHtml)
-        l1 = tree.xpath('//div[@class=\'wudongqiank\']/a[@href]/text()')
-        l2 = tree.xpath('//div[@class=\'wudongqiank\']/a[@href]/@href')
         url_list = []
         for i, elem  in enumerate(l1):
+            l1 = tree.xpath('//div[@class=\'wudongqiank\']/a[@href]/text()')
+            l2 = tree.xpath('//div[@class=\'wudongqiank\']/a[@href]/@href')
             #print elem.encode('utf8')
             #print l2[i].encode('utf8')
             if l2[i].find('http:') == 0:
@@ -40,7 +71,7 @@ class WoaiduCrawlerItem(CrawlerItem):
 class Worker(Crawler):
 
     def __init__(self, start_urls=None, template_cls=None, strategy=None, settings=None):
-        super(Worker, self).__init__(start_urls=start_urls, template_cls=WoaiduCrawlerItem, strategy=strategy)
+        super(Worker, self).__init__(start_urls=start_urls, template_cls=template_cls, strategy=strategy)
         logger.debug('Init Worker...')
         if settings is None:
             try:

@@ -46,8 +46,11 @@ complete
     usage
     1. 需要在master上安装redis
     2. 在worker上修改配置settings.py
+    3. write your self's XXXCrawlerItem class which inherit from class CrawlerItem 
 
 todo
 ====
 1. bloom filter
 2. avoid ban
+3. watermark for worker
+4. save page to separate file autoly

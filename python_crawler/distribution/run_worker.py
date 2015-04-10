@@ -1,4 +1,4 @@
-from worker import Worker
+from worker import Worker, Item36kr
 import settings
 from strategy import Strategy
 from multiprocessing import Pool, Process
@@ -6,7 +6,7 @@ from multiprocessing import Pool, Process
 def generate_process(i):
     start_urls = []
     strategy = Strategy(Strategy.BSF)
-    worker = Worker(start_urls=start_urls, strategy=strategy, settings=settings)
+    worker = Worker(start_urls=start_urls, strategy=strategy, settings=settings, template_cls=Item36kr)
     worker.run()
 
 if __name__ == '__main__':
